@@ -45,13 +45,15 @@ public class InfoService implements IInfoService {
     }
 
 
-    @Override
-    public IataResponse getAirportInfo(String iata) {
 
+    @Override
+    public IataResponse getAirportInfo(String iata, String date) {
         List<Flight> departingFlights =
-                flightRepository.findAllByDepartureAirportIATACode(iata);
+                flightRepository.findAllByDepartureAirportIATACodeAndDepartureDate(iata,date);
+        // I assume that plane arrives the same day it departs, but it may not be true
+        // there is no flight time given, so I assume that
         List<Flight> arrivingFlights =
-                flightRepository.findAllByArrivalAirportIATACode(iata);
+                flightRepository.findAllByArrivalAirportIATACodeAndDepartureDate(iata, date);
 
         long departingBaggage = 0;
         long arrivingBaggage = 0;
@@ -63,13 +65,10 @@ public class InfoService implements IInfoService {
 
 
         return IataResponse.builder()
-                .totalDepartingFlights(flightRepository.countDepartures(iata))
-                .totalArrivingFlights(flightRepository.countArrivals(iata))
-                .totalDepartingBaggage(departingBaggage)
+                .totalDepartingFlights((long) departingFlights.size())
+                .totalArrivingFlights((long) arrivingFlights.size())
                 .totalArrivingBaggage(arrivingBaggage)
+                .totalDepartingBaggage(departingBaggage)
                 .build();
     }
-
-
-
 }

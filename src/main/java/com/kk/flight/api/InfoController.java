@@ -21,10 +21,16 @@ public class InfoController {
     WeightResponse getWeightForFlightAndDate(@RequestParam Map<String,String> allParams){
         return iInfoService.getWeightForFlightAndDate(allParams.get("flightNo"),allParams.get("date"));
     }
-    @GetMapping("/total")
-    IataResponse getAirportStats(@RequestParam String iata){
+//    @GetMapping("/total")
+//    IataResponse getAirportStats(@RequestParam String iata){
+//
+//        return iInfoService.getAirportInfo(iata);
+//    }
 
-        return iInfoService.getAirportInfo(iata);
+    @GetMapping("/total")
+    IataResponse getAirportStats(@RequestParam Map<String,String> allParams){
+
+        return iInfoService.getAirportInfo(allParams.get("iata"),allParams.get("date"));
     }
 
 

@@ -5,5 +5,5 @@ import com.kk.flight.api.dto.WeightResponse;
 
 public interface IInfoService {
     WeightResponse getWeightForFlightAndDate(String flightNo, String date);
-    IataResponse getAirportInfo(String iata);
+    IataResponse getAirportInfo(String iata,String date);
 }
