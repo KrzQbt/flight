@@ -20,30 +20,16 @@ public class UploadController {
     @PostMapping("/upload/flights")
     void uploadFlights(@RequestBody List<FlightDto> flights){
 
-        // prevents list from further insertion and deletion
+        
         flights = Collections.unmodifiableList(flights);
-//        flights.forEach(
-//                x -> {
-//                    System.out.println(x.getDepartureDate().substring(0,10));
-//                    System.out.println(x.getDepartureDate().substring(11));
-//                }
-//        );
-
         uploadService.saveFlightList(flights);
 
     }
     @PostMapping("/upload/shipments")
     void uploadShipments(@RequestBody List<ShipmentPerFlightDto> shipments){
 
-        // prevents list from further insertion and deletion
+        
         shipments = Collections.unmodifiableList(shipments);
-//        shipments.forEach( x -> {
-//            System.out.println("baggage");
-//            x.getBaggage().forEach(System.out::println);
-//            System.out.println("cargo");
-//            x.getCargo().forEach(System.out::println);
-//            System.out.println("next");
-//        });
         uploadService.saveShipmentList(shipments);
     }
 
